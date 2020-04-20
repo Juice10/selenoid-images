@@ -2,6 +2,7 @@
 VIDEO_SIZE=${VIDEO_SIZE:-"1920x1080"}
 BROWSER_CONTAINER_NAME=${BROWSER_CONTAINER_NAME:-"browser"}
 DISPLAY=${DISPLAY:-"99"}
+DRAW_MOUSE=${DRAW_MOUSE:-"0"}
 FILE_NAME=${FILE_NAME:-"video.mp4"}
 FRAME_RATE=${FRAME_RATE:-"12"}
 CODEC=${CODEC:-"libx264"}
@@ -22,4 +23,4 @@ until [ $retcode -eq 0 -o $attempts -eq $max_attempts ]; do
 	fi
 	attempts=$((attempts+1))
 done
-exec ffmpeg -y -f x11grab -video_size ${VIDEO_SIZE} -r ${FRAME_RATE} -i ${BROWSER_CONTAINER_NAME}:${DISPLAY} -codec:v ${CODEC} ${PRESET} -pix_fmt yuv420p "/data/$FILE_NAME"
+exec ffmpeg -y -f x11grab -draw_mouse ${DRAW_MOUSE} -video_size ${VIDEO_SIZE} -r ${FRAME_RATE} -i ${BROWSER_CONTAINER_NAME}:${DISPLAY} -codec:v ${CODEC} ${PRESET} -pix_fmt yuv420p "/data/$FILE_NAME"
